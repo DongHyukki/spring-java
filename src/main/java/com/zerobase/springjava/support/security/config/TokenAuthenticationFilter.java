@@ -39,7 +39,7 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
         var principal = new TokenAuthenticatedPrincipal(token);
 
         JwtAuthenticationToken authenticationToken = new JwtAuthenticationToken(principal);
-
+        System.out.println("kk");
         return authenticationManager.authenticate(authenticationToken);
     }
 
