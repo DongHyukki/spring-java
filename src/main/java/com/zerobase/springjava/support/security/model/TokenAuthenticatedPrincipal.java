@@ -1,20 +1,21 @@
 package com.zerobase.springjava.support.security.model;
 
+import com.zerobase.springjava.support.security.support.jwt.JsonWebToken;
 import org.springframework.security.core.AuthenticatedPrincipal;
 
 import java.util.Optional;
 
 public class TokenAuthenticatedPrincipal implements AuthenticatedPrincipal {
-    private static final String ERASED_TOKEN = "erased-token";
+    private static final JsonWebToken ERASED_TOKEN = JsonWebToken.of("erased-token");
     private final Optional<String> userId;
-    private final String token;
+    private final JsonWebToken token;
 
-    public TokenAuthenticatedPrincipal(String token) {
+    public TokenAuthenticatedPrincipal(JsonWebToken token) {
         this.token = token;
         this.userId = Optional.empty();
     }
 
-    public TokenAuthenticatedPrincipal(String userId, String token) {
+    public TokenAuthenticatedPrincipal(String userId, JsonWebToken token) {
         this.userId = Optional.of(userId);
         this.token = token;
     }
@@ -39,7 +40,7 @@ public class TokenAuthenticatedPrincipal implements AuthenticatedPrincipal {
         );
     }
 
-    public String getToken() {
+    public JsonWebToken getToken() {
         return token;
     }
 

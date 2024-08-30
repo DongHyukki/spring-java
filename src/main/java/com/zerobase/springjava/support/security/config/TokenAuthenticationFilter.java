@@ -2,6 +2,7 @@ package com.zerobase.springjava.support.security.config;
 
 import com.zerobase.springjava.support.security.model.JwtAuthenticationToken;
 import com.zerobase.springjava.support.security.model.TokenAuthenticatedPrincipal;
+import com.zerobase.springjava.support.security.support.jwt.JsonWebToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,7 +45,7 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
         var token = getBearerToken(request);
-        var principal = new TokenAuthenticatedPrincipal(token);
+        var principal = new TokenAuthenticatedPrincipal(JsonWebToken.of(token));
 
         JwtAuthenticationToken authenticationToken = new JwtAuthenticationToken(principal);
         return authenticationManager.authenticate(authenticationToken);
