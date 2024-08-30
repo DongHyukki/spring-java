@@ -24,12 +24,20 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
     private static final String BEARER_PREFIX = "Bearer ";
     private static final String API_PATH = "/api/**";
     private static final String AUTHORIZATION_HEADER_NAME = "Authorization";
-    private final AuthenticationManager authenticationManager;
     private static final RequestMatcher requiresAuthenticationRequestMatcher = new AntPathRequestMatcher(API_PATH);
+    private final AuthenticationManager authenticationManager;
 
     public TokenAuthenticationFilter(@Qualifier("tokenAuthenticationManager") AuthenticationManager authenticationManager) {
         super(requiresAuthenticationRequestMatcher, authenticationManager);
         this.authenticationManager = authenticationManager;
+    }
+
+    public static String getBearerToken(HttpServletRequest request) {
+        String authorizationHeader = request.getHeader(AUTHORIZATION_HEADER_NAME);
+        if (authorizationHeader != null && authorizationHeader.startsWith(BEARER_PREFIX)) {
+            return authorizationHeader.substring(BEARER_PREFIX.length());
+        }
+        return null;
     }
 
     @Override
@@ -39,16 +47,7 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
         var principal = new TokenAuthenticatedPrincipal(token);
 
         JwtAuthenticationToken authenticationToken = new JwtAuthenticationToken(principal);
-        System.out.println("kk");
         return authenticationManager.authenticate(authenticationToken);
-    }
-
-    public static String getBearerToken(HttpServletRequest request) {
-        String authorizationHeader = request.getHeader(AUTHORIZATION_HEADER_NAME);
-        if (authorizationHeader != null && authorizationHeader.startsWith(BEARER_PREFIX)) {
-            return authorizationHeader.substring(BEARER_PREFIX.length());
-        }
-        return null;
     }
 
     @Override
