@@ -1,6 +1,6 @@
 package com.zerobase.springjava.support.security.model;
 
-import com.zerobase.springjava.support.security.support.jwt.JsonWebToken;
+import com.zerobase.springjava.support.jwt.JsonWebToken;
 import org.springframework.security.core.AuthenticatedPrincipal;
 
 import java.util.Optional;

@@ -2,7 +2,7 @@ package com.zerobase.springjava.support.security.config;
 
 import com.zerobase.springjava.support.security.model.JwtAuthenticationToken;
 import com.zerobase.springjava.support.security.model.TokenAuthenticatedPrincipal;
-import com.zerobase.springjava.support.security.support.jwt.JsonWebToken;
+import com.zerobase.springjava.support.jwt.JsonWebToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requestMatcherCustomizer) ->
                         requestMatcherCustomizer
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers("/api/v1/logging").permitAll()
                                 .requestMatchers("/api/**").hasAnyRole("ADMIN", "API")
                                 .anyRequest().permitAll())
                 .formLogin(AbstractHttpConfigurer::disable)
