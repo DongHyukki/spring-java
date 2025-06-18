@@ -1,4 +1,4 @@
-package com.donghyukki.springjava.support.security.support.common.result;
+package com.donghyukki.springjava.support.common.result;
 
 
 public abstract class Result<T, E extends Exception> {

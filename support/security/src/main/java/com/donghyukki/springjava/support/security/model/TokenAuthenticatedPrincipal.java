@@ -1,6 +1,6 @@
 package com.donghyukki.springjava.support.security.model;
 
-import com.donghyukki.springjava.support.security.support.common.jwt.JsonWebToken;
+import com.donghyukki.springjava.support.common.jwt.JsonWebToken;
 import org.springframework.security.core.AuthenticatedPrincipal;
 
 import java.util.Optional;

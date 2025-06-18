@@ -1,8 +1,8 @@
 package com.donghyukki.springjava.support.security.config;
 
+import com.donghyukki.springjava.support.common.jwt.JsonWebToken;
 import com.donghyukki.springjava.support.security.model.JwtAuthenticationToken;
 import com.donghyukki.springjava.support.security.model.TokenAuthenticatedPrincipal;
-import com.donghyukki.springjava.support.security.support.common.jwt.JsonWebToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

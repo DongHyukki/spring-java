@@ -1,4 +1,4 @@
-package com.donghyukki.springjava.support.security.support.common.wrapper;
+package com.donghyukki.springjava.support.common.wrapper;
 
 public record Pair<T1, T2>(T1 first, T2 second) {
 

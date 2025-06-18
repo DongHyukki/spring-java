@@ -20,7 +20,7 @@ class InMemoryAuthUserRepository implements AuthUserRepository {
                         "test-user-1",
                         "test-user-name-1",
                         new BCryptPasswordEncoder().encode("test-user-password-1"),
-                        List.of("admin")));
+                        List.of("user","admin","super_admin")));
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.donghyukki.springjava.support.security.config;
 
+import com.donghyukki.springjava.support.common.jwt.JsonWebTokenManager;
 import com.donghyukki.springjava.support.security.model.AuthUser;
 import com.donghyukki.springjava.support.security.model.JwtAuthenticationToken;
 import com.donghyukki.springjava.support.security.model.TokenAuthenticatedPrincipal;
-import com.donghyukki.springjava.support.security.support.common.jwt.JsonWebTokenManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

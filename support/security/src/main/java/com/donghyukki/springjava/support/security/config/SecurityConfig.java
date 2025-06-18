@@ -1,5 +1,8 @@
 package com.donghyukki.springjava.support.security.config;
 
+import com.donghyukki.springjava.support.security.model.AdminAuthority;
+import com.donghyukki.springjava.support.security.model.SuperAdminAuthority;
+import com.donghyukki.springjava.support.security.model.UserAuthority;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,9 +25,12 @@ public class SecurityConfig {
                 csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requestMatcherCustomizer) ->
                         requestMatcherCustomizer
-                                .requestMatchers("/login").permitAll()
-                                .requestMatchers("/api/v1/logging").permitAll()
-                                .requestMatchers("/api/**").hasAnyRole("ADMIN", "API")
+                                .requestMatchers("/login")
+                                .permitAll()
+                                .requestMatchers("/api/v1/logging")
+                                .permitAll()
+                                .requestMatchers("/api/**")
+                                .hasAnyAuthority(UserAuthority.ROLE, AdminAuthority.ROLE, SuperAdminAuthority.ROLE)
                                 .anyRequest().permitAll())
                 .formLogin(AbstractHttpConfigurer::disable)
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
