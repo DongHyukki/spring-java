@@ -1,0 +1,4 @@
+logging:
+  pattern:
+    console:  "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [%X{traceId:-},%X{spanId:-}] %c - %m%n"
+  include-application-name: true

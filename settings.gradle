@@ -1,1 +1,8 @@
 rootProject.name = 'spring-java'
+
+include(":api")
+
+include(":support:database")
+include(":support:opentracing")
+include(":support:security")
+include(":support:common")

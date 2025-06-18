@@ -1,0 +1,6 @@
+dependencies {
+    implementation(project(":support:database"))
+    implementation(project(":support:opentracing"))
+    implementation(project(":support:security"))
+    implementation(project(":support:common"))
+}
