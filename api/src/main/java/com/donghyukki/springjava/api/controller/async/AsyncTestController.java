@@ -1,6 +1,7 @@
 package com.donghyukki.springjava.api.controller.async;
 
 import com.donghyukki.springjava.support.common.async.AsyncTemplate;
+import com.donghyukki.springjava.support.common.jwt.JsonWebTokenManager;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -16,16 +18,18 @@ import java.util.function.Supplier;
 public class AsyncTestController {
     private final RestTemplate restTemplate;
     private final AsyncTemplate asyncTemplate;
+    private final JsonWebTokenManager jsonWebTokenManager;
 
-    public AsyncTestController(RestTemplate restTemplate, AsyncTemplate asyncTemplate) {
+    public AsyncTestController(RestTemplate restTemplate, AsyncTemplate asyncTemplate, JsonWebTokenManager jsonWebTokenManager) {
         this.restTemplate = restTemplate;
         this.asyncTemplate = asyncTemplate;
+        this.jsonWebTokenManager = jsonWebTokenManager;
     }
 
     @GetMapping("api/async/await-all")
     public ResponseEntity<String> asyncAwaitAll() {
         long start = System.currentTimeMillis();
-        var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0LXVzZXItMSIsImV4cCI6MTc1MTMzNjUxNCwiaXNzIjoiemVyby1iYXNlIn0.7WBf-GjBVziLxbUiK7t_HRfYB85j4YfhRzGzhLvcIhc";
+        var token = jsonWebTokenManager.createToken("test-user-1", Instant.now().plusMillis(1000 * 60 * 60));
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);
