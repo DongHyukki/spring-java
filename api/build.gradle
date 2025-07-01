@@ -1,4 +1,6 @@
 dependencies {
+    implementation(project(":domain"))
+
     implementation(project(":support:database"))
     implementation(project(":support:opentracing"))
     implementation(project(":support:security"))

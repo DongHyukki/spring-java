@@ -7,18 +7,18 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CacheInfo {
+public class CacheableInfo {
 
-    static final Map<CacheType, List<CacheName>> CACHE_NAMES_BY_TYPE =
-            Arrays.stream(CacheName.values())
-                    .collect(Collectors.groupingBy(CacheName::getType));
+    static final Map<CacheType, List<CacheableSpec>> CACHE_NAMES_BY_TYPE =
+            Arrays.stream(CacheableSpec.values())
+                    .collect(Collectors.groupingBy(CacheableSpec::getType));
 
-    public enum CacheName {
+    public enum CacheableSpec {
         USER_INFO(CacheType.IN_MEMORY, null),
         API_CALL(CacheType.REDIS, Optional.of(Duration.ofMinutes(10L))),
         ;
 
-        CacheName(CacheType type, Optional<Duration> ttl) {
+        CacheableSpec(CacheType type, Optional<Duration> ttl) {
             this.type = type;
             this.ttl = ttl;
         }

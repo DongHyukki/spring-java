@@ -13,17 +13,17 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import java.time.Duration;
 import java.util.stream.Collectors;
 
-import static com.donghyukki.springjava.support.common.cache.CacheInfo.CACHE_NAMES_BY_TYPE;
+import static com.donghyukki.springjava.support.common.cache.CacheableInfo.CACHE_NAMES_BY_TYPE;
 
 @Configuration
 @EnableCaching
-public class CacheConfig {
+public class CacheableConfig {
 
     private static final Duration REDIS_DEFAULT_TTL = Duration.ofMinutes(10);
 
     @Bean("inMemoryCacheManager")
     public CacheManager inMemoryCacheManager() {
-        var cacheNames = CACHE_NAMES_BY_TYPE.get(CacheInfo.CacheType.IN_MEMORY)
+        var cacheNames = CACHE_NAMES_BY_TYPE.get(CacheableInfo.CacheType.IN_MEMORY)
                 .stream()
                 .map((Enum::name))
                 .toArray(String[]::new);
@@ -34,7 +34,7 @@ public class CacheConfig {
     @Primary
     @Bean("redisCacheManager")
     public CacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
-        var cacheNames = CACHE_NAMES_BY_TYPE.get(CacheInfo.CacheType.REDIS);
+        var cacheNames = CACHE_NAMES_BY_TYPE.get(CacheableInfo.CacheType.REDIS);
 
         var configMap = cacheNames.stream()
                 .collect(Collectors.toMap(

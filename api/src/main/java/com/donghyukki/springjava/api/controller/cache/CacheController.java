@@ -1,6 +1,8 @@
 package com.donghyukki.springjava.api.controller.cache;
 
-import com.donghyukki.springjava.support.common.cache.CacheInfo;
+import com.donghyukki.springjava.domain.service.cache.CacheCheckService;
+import com.donghyukki.springjava.support.common.cache.CacheableInfo;
+import com.donghyukki.springjava.support.database.entity.Company;
 import com.donghyukki.springjava.support.security.annotations.AllowedUserOrAdmin;
 import com.donghyukki.springjava.support.security.annotations.CurrentUserId;
 import com.donghyukki.springjava.support.security.model.AuthUser;
@@ -33,7 +35,7 @@ public class CacheController {
     @AllowedUserOrAdmin
     @GetMapping("/api/cache/in-memory")
     public ResponseEntity<AuthUser> cacheInMemory(@CurrentUserId String userId) {
-        var authUser = Optional.ofNullable(inMemoryCacheManager.getCache(CacheInfo.CacheName.USER_INFO.name()).get(userId, AuthUser.class));
+        var authUser = Optional.ofNullable(inMemoryCacheManager.getCache(CacheableInfo.CacheableSpec.USER_INFO.name()).get(userId, AuthUser.class));
         if (authUser.isPresent()) {
             System.out.println("cached user::" + userId);
         }
@@ -43,10 +45,16 @@ public class CacheController {
     @AllowedUserOrAdmin
     @GetMapping("/api/cache/redis")
     public ResponseEntity<String> cacheRedis(@CurrentUserId String userId) {
-        var cache = Optional.ofNullable(redisCacheManager.getCache(CacheInfo.CacheName.API_CALL.name()).get(userId, String.class));
+        var cache = Optional.ofNullable(redisCacheManager.getCache(CacheableInfo.CacheableSpec.API_CALL.name()).get(userId, String.class));
         if (cache.isPresent()) {
             System.out.println("cache.get() = " + cache.get());
         }
         return ResponseEntity.ok(cacheCheckService.callApi(userId));
+    }
+
+    @AllowedUserOrAdmin
+    @GetMapping("/api/cache/template")
+    public ResponseEntity<Company> cacheTemplate(@CurrentUserId String userId) {
+        return ResponseEntity.ok(cacheCheckService.getCompany("TEST-COMPANY-1"));
     }
 }
